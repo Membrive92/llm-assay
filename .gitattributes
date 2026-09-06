@@ -1,0 +1,23 @@
+# Normalise line endings; .editorconfig enforces LF on write, this enforces it on commit.
+* text=auto eol=lf
+
+# Windows-only scripts keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary
+*.jar binary
+*.zip binary
+
+# Keep diffs readable for datasets and calibration sets
+*.json text diff
+*.md text diff=markdown
+*.java text diff=java
+
+# Exclude generated/vendored content from GitHub language stats and diffs
+docs/adr/0000-template.md linguist-documentation
+LICENSE linguist-vendored

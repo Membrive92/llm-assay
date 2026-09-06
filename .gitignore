@@ -1,0 +1,124 @@
+# ---------------------------------------------------------------------------
+# llm-assay .gitignore
+# Sections: build output, IDEs, OS, secrets and local config, test artefacts,
+# SUT environment, tooling caches. Keep sections; add entries under the right one.
+# ---------------------------------------------------------------------------
+
+# --- Maven / Java build output ----------------------------------------------
+target/
+**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+.flattened-pom.xml
+
+# --- IDEs -------------------------------------------------------------------
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+# Eclipse / STS
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated/
+.springBeans
+.sts4-cache/
+bin/
+# VS Code
+.vscode/
+*.code-workspace
+# NetBeans
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# --- OS ---------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+
+# --- Secrets and local configuration ----------------------------------------
+# Never commit API keys, provider tokens or Dify app keys.
+# Commit .env.example only; each developer copies it to .env.
+.env
+.env.*
+!.env.example
+*.local
+*.local.properties
+application-local.yml
+application-local.yaml
+application-local.properties
+secrets/
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+
+# --- Test and evaluation artefacts ------------------------------------------
+# Allure raw results and generated site are build output; publish from CI, not from git.
+allure-results/
+allure-report/
+.allure/
+# JSON result files from evaluation runs (see ARCHITECTURE.md §7). Archived by CI.
+results/
+**/results/*.json
+# Testcontainers
+.testcontainers*
+# Playwright traces, videos and screenshots
+test-results/
+playwright-report/
+**/trace.zip
+# JUnit / Surefire / Failsafe
+**/surefire-reports/
+**/failsafe-reports/
+# Coverage
+jacoco.exec
+**/jacoco*.exec
+
+# --- SUT environment (Dify, Ollama) -----------------------------------------
+# Local Dify compose state and volumes; the pinned compose file itself is committed.
+sut/dify/volumes/
+sut/dify/.env
+sut/dify/docker/volumes/
+# Ollama model blobs are never part of the repo
+.ollama/
+models/
+
+# --- Datasets: local scratch only -------------------------------------------
+# Versioned datasets are committed. Scratch and generated variants are not.
+datasets/**/scratch/
+datasets/**/*.tmp
+datasets/**/*.generated.json
+
+# --- Tooling caches and logs ------------------------------------------------
+node_modules/
+.cache/
+.tool-versions.local
+*.log
+logs/
+.sdkmanrc.local
