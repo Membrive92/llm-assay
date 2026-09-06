@@ -1,15 +1,19 @@
 version: 2
 updates:
-  - package-ecosystem: maven
-    directory: /
-    schedule:
-      interval: weekly
-    groups:
-      spring-ai:
-        patterns: ["org.springframework.ai:*"]
-      test-stack:
-        patterns: ["org.junit*", "io.rest-assured:*", "org.testcontainers:*", "com.microsoft.playwright:*", "io.qameta.allure:*"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+
+  # Re-enable at M0, once pom.xml exists. Until then Dependabot reports a
+  # failed update every week for a manifest that is not there.
+  #
+  # - package-ecosystem: maven
+  #   directory: /
+  #   schedule:
+  #     interval: weekly
+  #   groups:
+  #     spring-ai:
+  #       patterns: ["org.springframework.ai:*"]
+  #     test-stack:
+  #       patterns: ["org.junit*", "io.rest-assured:*", "org.testcontainers:*", "com.microsoft.playwright:*", "io.qameta.allure:*"]

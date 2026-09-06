@@ -13,28 +13,35 @@ jobs:
     name: Markdown lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v18
+      - uses: actions/checkout@v7
+      - uses: DavidAnson/markdownlint-cli2-action@v24
         with:
-          globs: |
-            **/*.md
-            !LICENSE
+          globs: '**/*.md'
 
   build:
     name: Maven verify (pr profile)
     runs-on: ubuntu-latest
-    # Activates once the Maven skeleton lands (M0). Until then the job is skipped, not failed.
-    if: ${{ hashFiles('pom.xml') != '' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+
+      # hashFiles runs on the runner and needs the checkout above, so the
+      # gate lives at step level. Until the Maven skeleton lands (M0) every
+      # step below is skipped and the job reports success.
+      - id: detect
+        run: echo "present=$([ -f pom.xml ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - if: steps.detect.outputs.present == 'true'
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - run: mvn -B -ntp -Ppr verify
-      - uses: actions/upload-artifact@v4
-        if: always()
+
+      - if: steps.detect.outputs.present == 'true'
+        run: mvn -B -ntp -Ppr verify
+
+      - if: always() && steps.detect.outputs.present == 'true'
+        uses: actions/upload-artifact@v7
         with:
           name: allure-results
           path: '**/allure-results'

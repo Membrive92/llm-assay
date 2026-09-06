@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+
+- CI workflow rejected by GitHub: `hashFiles` is runner-side and cannot gate a job; the `pom.xml` check now runs as a step. Action versions updated; Maven Dependabot updates disabled until M0.
+
 ### Added
 
 - Repository documentation: README, architecture document, ADR-0001 to ADR-0004, contributing guide.
