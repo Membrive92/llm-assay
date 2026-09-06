@@ -13,7 +13,7 @@ jobs:
     name: Markdown lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: DavidAnson/markdownlint-cli2-action@v18
         with:
           globs: |
@@ -26,7 +26,7 @@ jobs:
     # Activates once the Maven skeleton lands (M0). Until then the job is skipped, not failed.
     if: ${{ hashFiles('pom.xml') != '' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
